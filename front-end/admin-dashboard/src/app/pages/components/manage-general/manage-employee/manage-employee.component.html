@@ -1,0 +1,189 @@
+<div class="grid">
+    <div class="card w-full px-4 py-4">
+        <p-table
+            [loading]="isLoadingTable"
+            dataKey="id"
+            [value]="employees"
+            [columns]="cols"
+            responsiveLayout="scroll"
+            [rowHover]="true"
+            [scrollable]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+        >
+            <ng-template pTemplate="caption">
+                <div class="flex justify-between align-middle">
+                    <div class="flex justify-start gap-3 align-middle">
+                        <span class="p-input-icon-left mt-2 block md:mt-0">
+                            <i class="pi pi-search"></i>
+                            <input
+                                pInputText
+                                type="text"
+                                placeholder="Tìm theo tên hoặc sđt..."
+                                class="w-full sm:w-auto"
+                                (input)="onSearch($event)"
+                                #searchInput
+                            />
+                        </span>
+
+                        <button
+                            pButton
+                            pRipple
+                            icon="pi pi-filter-slash"
+                            class="p-button-help"
+                            (click)="clearFilter(searchInput)"
+                        ></button>
+                    </div>
+                    <div>
+                        <button
+                            pButton
+                            pRipple
+                            label="Thêm nhân viên"
+                            icon="pi pi-plus"
+                            class="p-button-success mr-2"
+                            (click)="openNew()"
+                        ></button>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="colgroup">
+                <colgroup>
+                    <col class="w-4/12" />
+                    <col class="w-2/12" />
+                    <col class="w-5/12" />
+                    <col class="w-1/12" />
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Tên</th>
+                    <th>Số điện thoại</th>
+                    <th>Cửa hàng làm việc</th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-employee>
+                <tr>
+                    <td style="min-width: 10rem">
+                        <span class="p-column-title">Tên cửa hàng</span>
+                        {{ employee.name }}
+                    </td>
+
+                    <td style="min-width: 20rem">
+                        <span class="p-column-title">Số điện thoại</span>
+                        {{ employee.phone }}
+                    </td>
+                    <td style="min-width: 10rem">
+                        <span class="p-column-title">Cửa hàng làm việc</span>
+                        {{ employee.store.name }}
+                    </td>
+                    <td>
+                        <div class="flex justify-end align-middle">
+                            <button
+                                pButton
+                                pRipple
+                                icon="pi pi-pencil"
+                                class="p-button-rounded p-button-success p-button-outlined"
+                                (click)="editEmployee(employee)"
+                            ></button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <p-paginator
+                    (onPageChange)="onPageChange($event)"
+                    [first]="first"
+                    [rows]="rows"
+                    [totalRecords]="totalRecords"
+                    [rowsPerPageOptions]="rowsPerPageOptions"
+                    currentPageReportTemplate="{first} - {last} /{totalRecords} Nhân viên"
+                    [showCurrentPageReport]="true"
+                    [showFirstLastIcon]="true"
+                ></p-paginator>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="2">Không tìm thấy kết quả phù hợp</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div>
+        <p-dialog
+            [(visible)]="employeeDialog"
+            [style]="{ width: '450px', height: '500px' }"
+            header="Thêm nhân viên"
+            [modal]="true"
+            class="p-fluid"
+            [draggable]="false"
+        >
+            <ng-template pTemplate="content">
+                <div class="field">
+                    <label for="store">Cửa hàng làm việc</label>
+                    <p-dropdown
+                        [filter]="true"
+                        filterBy="name"
+                        [options]="stores"
+                        [(ngModel)]="employeeToEdit.storeId"
+                        optionValue="id"
+                        optionLabel="name"
+                        [showClear]="true"
+                        placeholder="Chọn cửa hàng làm việc"
+                    ></p-dropdown>
+                </div>
+                <div class="field">
+                    <label for="name">Tên nhân viên</label>
+                    <input
+                        type="text"
+                        pInputText
+                        id="name"
+                        [(ngModel)]="employeeToEdit.name"
+                        required
+                        autofocus
+                        placeholder="Nhập họ và tên"
+                    />
+                </div>
+                <div class="field">
+                    <label for="phone">Số điện thoại</label>
+                    <input
+                        type="text"
+                        pInputText
+                        id="phone"
+                        [(ngModel)]="employeeToEdit.phone"
+                        (ngModelChange)="validatePhone()"
+                        required
+                        placeholder="Nhập số điện thoại"
+                    />
+                    <small class="ng-dirty ng-invalid" *ngIf="phoneInvalid"
+                        >*Số điện thoại chỉ được chứa chữ số</small
+                    >
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <button
+                    pButton
+                    pRipple
+                    label="Tạo"
+                    icon="pi pi-check"
+                    class="p-button-text"
+                    [disabled]="
+                        !employeeToEdit.name ||
+                        !employeeToEdit.phone ||
+                        !employeeToEdit.storeId ||
+                        phoneInvalid
+                    "
+                    (click)="createOrUpdateEmployee()"
+                ></button>
+                <button
+                    pButton
+                    pRipple
+                    label="Hủy"
+                    icon="pi pi-times"
+                    class="p-button-text p-button-danger"
+                    (click)="hideDialog()"
+                ></button>
+            </ng-template>
+        </p-dialog>
+    </div>
+</div>

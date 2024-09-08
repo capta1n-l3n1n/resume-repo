@@ -1,0 +1,98 @@
+<div class="grid">
+    <div class="card w-full px-4 py-4">
+        <p-table
+            #dt
+            [value]="stores"
+            [columns]="cols"
+            responsiveLayout="scroll"
+            [rows]="rows"
+            [paginator]="true"
+            [rowsPerPageOptions]="rowsPerPageOptions"
+            [loading]="isLoadingTable"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="{first} - {last} / {totalRecords} cửa hàng"
+            [rowHover]="true"
+            dataKey="id"
+            [scrollable]="true"
+        >
+            <ng-template pTemplate="caption">
+                <div class="flex justify-between align-middle">
+                    <div class="flex justify-start gap-3 align-middle">
+                        <span class="p-input-icon-left mt-2 block md:mt-0">
+                            <i class="pi pi-search"></i>
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="onGlobalFilter(dt, $event)"
+                                placeholder="Tìm nhanh theo tên..."
+                                class="w-full sm:w-auto"
+                            />
+                        </span>
+                        <button
+                            pButton
+                            pRipple
+                            icon="pi pi-filter-slash"
+                            class="p-button-help"
+                        ></button>
+                    </div>
+                    <div>
+                        <button
+                            pButton
+                            pRipple
+                            label="Thêm cửa hàng"
+                            icon="pi pi-plus"
+                            class="p-button-success mr-2"
+                            (click)="openNew()"
+                        ></button>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Tên</th>
+                    <th>Địa chỉ</th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="colgroup">
+                <colgroup>
+                    <col class="w-5/12" />
+                    <col class="w-6/12" />
+                    <col class="w-1/12" />
+                </colgroup>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-store>
+                <tr>
+                    <td style="min-width: 10rem">
+                        <span class="p-column-title">Tên cửa hàng</span>
+                        {{ store.name }}
+                    </td>
+
+                    <td style="min-width: 10rem">
+                        <span class="p-column-title">Địa chỉ</span>
+                        {{ store.address }}
+                    </td>
+                    <td>
+                        <div class="flex justify-end align-middle">
+                            <button
+                                pButton
+                                pRipple
+                                icon="pi pi-pencil"
+                                class="p-button-rounded p-button-success p-button-outlined mr-2"
+                                (click)="editStore(store)"
+                            ></button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <component-create-update-store
+        [storeDialog]="storeDialog"
+        [store]="storeToEdit || {}"
+        (storeSaved)="onStoreSaved($event)"
+        (closeDialog)="hideDialog()"
+    ></component-create-update-store>
+</div>

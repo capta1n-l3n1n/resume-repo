@@ -1,0 +1,68 @@
+<div>
+    <p-dialog
+        [(visible)]="storeDialog"
+        [style]="{ width: '450px' }"
+        header="Tạo cửa hàng"
+        [modal]="true"
+        class="p-fluid"
+    >
+        <ng-template pTemplate="content">
+            <div class="field">
+                <label for="name">Tên cửa hàng</label>
+                <input
+                    type="text"
+                    pInputText
+                    id="name"
+                    [(ngModel)]="store.name"
+                    required
+                    [ngClass]="{
+                        'ng-invalid ng-dirty': submitted && !store.name,
+                    }"
+                />
+                <small
+                    class="ng-dirty ng-invalid"
+                    *ngIf="submitted && !store.name"
+                    >*Bắt buộc nhập tên cửa hàng</small
+                >
+            </div>
+            <div class="field">
+                <label for="address">Địa chỉ</label>
+                <input
+                    type="text"
+                    pInputText
+                    id="address"
+                    [(ngModel)]="store.address"
+                    required
+                    [ngClass]="{
+                        'ng-invalid ng-dirty': submitted && !store.address,
+                    }"
+                />
+                <small
+                    class="ng-dirty ng-invalid"
+                    *ngIf="submitted && !store.address"
+                    >*Bắt buộc nhập địa chỉ</small
+                >
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button
+                pButton
+                pRipple
+                label="Tạo"
+                icon="pi pi-check"
+                class="p-button-text p-button-outlined"
+                (click)="saveStore()"
+                [disabled]="!store.address || !store.name"
+            ></button>
+            <button
+                pButton
+                pRipple
+                label="Hủy"
+                icon="pi pi-times"
+                class="p-button-text p-button-danger p-button-outlined"
+                (click)="hideDialog()"
+            ></button>
+        </ng-template>
+    </p-dialog>
+</div>

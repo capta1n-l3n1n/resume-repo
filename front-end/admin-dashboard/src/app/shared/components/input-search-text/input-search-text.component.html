@@ -1,0 +1,18 @@
+<div class="flex">
+    <span class="p-input-icon-left mr-auto">
+        <i class="pi pi-search"></i>
+        <input
+            class="pr-4"
+            pInputText
+            type="text"
+            [(ngModel)]="textSearch"
+            (ngModelChange)="onChangeSearch($event)"
+            placeholder="Tìm tên, số điện thoại"
+        />
+        <i
+            *ngIf="textSearch"
+            class="pi pi-times -ml-4 cursor-pointer"
+            (click)="clearSearch()"
+        ></i>
+    </span>
+</div>

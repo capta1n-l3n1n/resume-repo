@@ -1,0 +1,19 @@
+.fixed-header {
+    position: sticky;
+    top: 0;
+    background: white; /* Ensure the background is set to avoid transparency issues */
+    z-index: 1; /* Ensure it is above other content */
+    border-bottom: 1px solid #ddd; /* Add a border to the header if needed */
+}
+.card table {
+    border-collapse: separate;
+}
+.warn-img img {
+    width: 70%;
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
+    box-shadow: 0px 2px 20px 20px rgb(0 0 0 / 8%);
+    border-radius: 20px;
+    opacity: 40%;
+}

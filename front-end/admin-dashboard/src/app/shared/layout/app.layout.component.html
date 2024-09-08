@@ -1,0 +1,17 @@
+<div class="layout-wrapper" [ngClass]="containerClass">
+    <app-topbar></app-topbar>
+    <div
+        id="layout-sidebar"
+        class="fixed top-20 z-[999] flex select-none flex-col justify-between overflow-y-auto px-5 py-0"
+    >
+        <app-sidebar></app-sidebar>
+        <app-footer></app-footer>
+    </div>
+    <div class="layout-main-container">
+        <div class="layout-main">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <!-- <app-config></app-config> -->
+    <div class="layout-mask"></div>
+</div>

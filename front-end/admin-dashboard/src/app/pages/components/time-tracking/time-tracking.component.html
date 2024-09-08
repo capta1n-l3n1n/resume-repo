@@ -1,0 +1,259 @@
+<div *ngIf="isTablet(); else mobileTemplate" class="card test">
+    <div class="mb-4 flex justify-between">
+        <div class="flex gap-3">
+            <p-cascadeSelect
+                [(ngModel)]="selectedMonth"
+                [options]="optionDate"
+                optionLabel="display"
+                optionGroupLabel="name"
+                [optionGroupChildren]="['months']"
+                placeholder="Chọn thời gian"
+                (onChange)="onMonthSelect($event)"
+            >
+                <ng-template pTemplate="option" let-option>
+                    <span>
+                        {{ option.display || option.name }}
+                    </span>
+                </ng-template>
+            </p-cascadeSelect>
+            <p-dropdown
+                [(ngModel)]="selectedStore"
+                [options]="storeOptions"
+                optionLabel="label"
+                placeholder="Chọn cửa hàng"
+                (onChange)="onStoreSelect($event)"
+            ></p-dropdown>
+            <button
+                pButton
+                pRipple
+                label="Bỏ lọc"
+                icon="pi pi-filter-slash"
+                class="p-button-help"
+                (click)="resetSelections()"
+                [disabled]="!selectedMonth && !selectedStoreId && !filterName"
+            ></button>
+        </div>
+        <button
+            pButton
+            pRipple
+            label="Excel"
+            icon="pi pi-file-excel"
+            (click)="onExportClicked()"
+            [disabled]="filteredAttendanceData?.length == 0"
+        ></button>
+    </div>
+    <p-table
+        [value]="filteredAttendanceData"
+        [scrollable]="true"
+        scrollHeight="50rem"
+        [resizableColumns]="true"
+        styleClass="p-datatable-gridlines"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [rowHover]="true"
+        [loading]="loading"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th pFrozenColumn colspan="2" alignFrozen="left">
+                    <input
+                        class="w-full"
+                        type="text"
+                        [(ngModel)]="filterName"
+                        (input)="filterEmployees()"
+                        placeholder="Tìm nhanh theo tên..."
+                        pInputText
+                    />
+                </th>
+                <th
+                    style="text-align: center; padding: 10px"
+                    *ngFor="let day of days"
+                    [ngClass]="{ 'text-red-500': isWeekend(day.dayOfWeek) }"
+                >
+                    <p>{{ day.dayOfWeek }}</p>
+                    <p>{{ day.date }}</p>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-employee>
+            <tr>
+                <td
+                    pFrozenColumn
+                    alignFrozen="left"
+                    style="width: auto; min-width: 250px; padding: 10px"
+                >
+                    <div>
+                        <p
+                            class="mb-0 font-bold"
+                            [title]="employee.employeeName"
+                        >
+                            {{ employee.employeeName | slice: 0 : 25 }}
+                            <span *ngIf="employee.employeeName.length > 25"
+                                >...</span
+                            >
+                        </p>
+                        <p
+                            class="text-sm text-gray-600"
+                            [title]="employee.storeName"
+                        >
+                            {{ employee.storeName | slice: 0 : 30 }}
+                            <span *ngIf="employee.storeName.length > 30"
+                                >...</span
+                            >
+                        </p>
+                    </div>
+                </td>
+                <td pFrozenColumn style="padding: 5px">
+                    <div>
+                        <div>
+                            <span>D:</span>
+                            <span class="font-semibold">
+                                {{ employee.totalDays }}
+                            </span>
+                        </div>
+                        <div>
+                            <span>H:</span>
+                            <span class="font-semibold">
+                                {{ employee.totalHours.toFixed(2) }}
+                            </span>
+                        </div>
+                    </div>
+                </td>
+
+                <td
+                    *ngFor="let day of days"
+                    style="text-align: center; padding: 5px"
+                >
+                    <ng-container *ngIf="employee.logs[day.date]">
+                        <p
+                            class="mb-0 cursor-pointer border-b-2 border-b-gray-200 text-green-600 hover:text-green-800"
+                            (click)="
+                                showDialog(
+                                    employee.logs[day.date].minActivityId,
+                                    employee
+                                )
+                            "
+                        >
+                            {{ employee.logs[day.date].minLog }}
+                        </p>
+                        <ng-container
+                            *ngIf="
+                                employee.logs[day.date].maxActivityId;
+                                else showX
+                            "
+                        >
+                            <p
+                                class="cursor-pointer text-red-600 hover:text-red-800"
+                                (click)="
+                                    showDialog(
+                                        employee.logs[day.date].maxActivityId,
+                                        employee
+                                    )
+                                "
+                            >
+                                {{ employee.logs[day.date].maxLog }}
+                            </p>
+                        </ng-container>
+                        <ng-template #showX>
+                            <p>X</p>
+                        </ng-template>
+                    </ng-container>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="2">Không tìm thấy kết quả phù hợp</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-dialog
+        [header]="logsDetailData?.storeName"
+        [(visible)]="visible"
+        [modal]="true"
+        [style]="{ width: '50vw' }"
+        [draggable]="false"
+        [resizable]="false"
+    >
+        <div class="flex justify-center gap-3 align-middle">
+            <div class="basis-2/3">
+                <p>
+                    <span class="font-medium">Tên:</span>
+                    {{ attendanceDetailData?.employeeName || "Không dữ liệu" }}
+                </p>
+
+                <p>
+                    <span class="font-medium">Số ngày đi làm:</span>
+                    {{
+                        attendanceDetailData?.totalDays + " ngày" ||
+                            "Không dữ liệu"
+                    }}
+                </p>
+                <p>
+                    <span class="font-medium">Số giờ làm việc:</span>
+                    {{
+                        attendanceDetailData?.totalHours.toFixed(2) + " giờ" ||
+                            "Không dữ liệu"
+                    }}
+                </p>
+                <p>
+                    <span class="font-medium">Cửa hàng làm việc:</span>
+                    {{ attendanceDetailData?.storeName || "Không dữ liệu" }}
+                </p>
+                <p>
+                    <span class="font-medium"> Vị trí cửa hàng:</span>
+                    {{ logsDetailData?.storeAddress || "Không dữ liệu" }}
+                </p>
+                <p>
+                    <span class="font-medium">Vị trí điểm danh:</span>
+                    {{ logsDetailData?.address || "Không dữ liệu" }}
+                </p>
+                <p>
+                    <span class="font-medium">Thiết bị sử dụng:</span>
+                    {{ logsDetailData?.userAgent || "Không dữ liệu" }}
+                </p>
+
+                <div
+                    *ngIf="logsDetailData?.lat && logsDetailData?.lng"
+                    class="border-t pt-3"
+                >
+                    <p class="text-lg font-bold">Bản đồ</p>
+                    <p>
+                        <span class="font-medium">Tọa độ điểm danh:</span>
+                        {{ logsDetailData?.lat || "Không dữ liệu" }} |
+                        {{ logsDetailData?.lng || "Không dữ liệu" }}
+                    </p>
+                    <app-map
+                        [lat]="logsDetailData.lat"
+                        [lng]="logsDetailData.lng"
+                        [id]="'map-' + logsDetailData?.storeId"
+                    ></app-map>
+                </div>
+            </div>
+            <div class="flex basis-1/3 justify-center align-middle">
+                <img
+                    class="h-[450px]"
+                    [src]="
+                        logsDetailData?.photo ||
+                        'assets/layout/images/no-img.png'
+                    "
+                    alt="time-tracking-photo"
+                />
+            </div>
+        </div>
+    </p-dialog>
+</div>
+<ng-template #mobileTemplate>
+    <div class="warn-img">
+        <img src="assets/layout/images/device.webp" />
+    </div>
+    <h3 class="text-center">Device not supported</h3>
+    <p class="text-center">
+        This page is only supported on devices with larger screen.
+        <br />
+        We recommend accessing this page on a tablet, laptop, or desktop for the
+        best experience.
+        <br />
+        Thank you for your understanding.
+    </p>
+</ng-template>

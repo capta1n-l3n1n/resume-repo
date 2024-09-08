@@ -1,0 +1,63 @@
+<div
+    class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden"
+>
+    <div class="flex flex-column align-items-center justify-content-center">
+        <div
+            style="
+                border-radius: 56px;
+                padding: 0.3rem;
+                background: linear-gradient(
+                    180deg,
+                    rgba(247, 149, 48, 0.4) 10%,
+                    rgba(247, 149, 48, 0) 30%
+                );
+            "
+        >
+            <div
+                class="w-full surface-card py-8 px-5 sm:px-8 flex flex-column align-items-center"
+                style="border-radius: 53px"
+            >
+                <img
+                    src="assets/layout/images/logo-xyz.svg"
+                    alt="bc-logo"
+                    class="mb-5 flex-shrink-0"
+                />
+                <div class="flex flex-column align-items-center">
+                    <h1 class="text-900 font-bold text-4xl lg:text-5xl mb-2">
+                        Truy cập bị từ chối
+                    </h1>
+                    <div class="my-5 text-center">
+                        <p class="text-lg m-0 font-semibold">
+                            Không đủ quyền để truy cập.
+                        </p>
+                        <p class="text-orange-700">
+                            Vui lòng liên hệ với admins để được cấp quyền!
+                        </p>
+                    </div>
+                    <img
+                        src="assets/pages/images/access/asset-access.svg"
+                        alt="Access denied"
+                        class="mb-5"
+                        width="80%"
+                    />
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-arrow-left"
+                        label="Trở lại trang chủ"
+                        class="p-button-text"
+                        [routerLink]="['/']"
+                    ></button>
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-arrow-left"
+                        label="Đổi tài khoản"
+                        class="p-button-text text-orange-500"
+                        [routerLink]="['/']"
+                    ></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

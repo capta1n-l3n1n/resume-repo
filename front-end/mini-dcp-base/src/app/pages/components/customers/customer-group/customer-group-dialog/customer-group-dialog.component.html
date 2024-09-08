@@ -1,0 +1,35 @@
+<div class="flex flex-col gap-5 px-3">
+    <div>
+        <h6>Tên nhóm</h6>
+        <input
+            pInputText
+            type="text"
+            placeholder="Nhập tên nhóm"
+            class="w-full"
+        />
+    </div>
+    <div>
+        <h6>Chọn lọc</h6>
+
+        <p-tabView [(activeIndex)]="activeIndex">
+            <p-tabPanel header="Độ tuổi">
+                <customer-group-filter-age></customer-group-filter-age>
+            </p-tabPanel>
+            <p-tabPanel header="Tháng sinh nhật">
+                <customer-group-filter-birthday></customer-group-filter-birthday>
+            </p-tabPanel>
+            <p-tabPanel header="Giới tính">
+                <customer-group-filter-gender></customer-group-filter-gender>
+            </p-tabPanel>
+            <p-tabPanel header="Khu vực">
+                <customer-group-filter-area></customer-group-filter-area>
+            </p-tabPanel>
+            <p-tabPanel header="Sở thích">
+                <customer-group-filter-hobby></customer-group-filter-hobby>
+            </p-tabPanel>
+            <p-tabPanel header="Hoạt động mua hàng">
+                <customer-group-filter-activity></customer-group-filter-activity>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</div>

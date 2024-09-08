@@ -1,0 +1,32 @@
+<div>
+    <p>Vui lòng chọn giới tính</p>
+    <div class="flex align-middle gap-5">
+        <div class="flex align-middle gap-1">
+            <p-checkbox
+                name="gender"
+                value="Male"
+                [(ngModel)]="gender"
+                inputId="male"
+            ></p-checkbox>
+            <label for="male">Nam</label>
+        </div>
+        <div class="flex align-middle gap-1">
+            <p-checkbox
+                name="gender"
+                value="Female"
+                [(ngModel)]="gender"
+                inputId="female"
+            ></p-checkbox>
+            <label for="female">Nữ</label>
+        </div>
+        <div class="flex align-middle gap-1">
+            <p-checkbox
+                name="gender"
+                value="No Info"
+                [(ngModel)]="gender"
+                inputId="noInfo"
+            ></p-checkbox>
+            <label for="noInfo">Không thông tin</label>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+body[zaui-theme="dark"] .switch-theme {
+  background-color: white !important;
+}
+body[zaui-theme="light"] .switch-theme {
+  background-color: black !important;
+}

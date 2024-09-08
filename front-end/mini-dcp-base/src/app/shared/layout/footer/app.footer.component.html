@@ -1,0 +1,18 @@
+<div
+    class="layout-footer mt-3 text-center flex flex-col justify-center align-middle gap-3"
+>
+    <a href="https://xyz.vn/"
+        ><img
+            src="assets/layout/images/{{
+                layoutService.config.colorScheme === 'light'
+                    ? 'logo-dark'
+                    : 'logo-white'
+            }}.svg"
+            alt="logo-bc"
+    /></a>
+    <p class="text-xs">
+        Copyright
+        <a class="hover:text-blue-500" href="https://xyz.vn/">xyz</a>
+        @<span class="italic">{{ date | date: "YYYY" }}</span>
+    </p>
+</div>

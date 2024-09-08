@@ -1,0 +1,150 @@
+<div class="pb-20">
+    <p>Vui lòng chọn các hoạt động mua hàng theo mong muốn</p>
+    <div>
+        <h6>- Lọc những khách hàng khớp với tất cả điều kiện dưới đây</h6>
+    </div>
+    <div>
+        <p>Kênh mua hàng</p>
+        <p-multiSelect
+            [options]="channels"
+            [(ngModel)]="selectedChannels"
+            placeholder="Chọn kênh mua hàng"
+            optionLabel="name"
+            display="chip"
+            [showClear]="true"
+            [overlayVisible]="false"
+            ngClass="w-full"
+            [style]="{
+                width: '100%'
+            }"
+        ></p-multiSelect>
+    </div>
+    <div class="mt-5">
+        <p>Số lượng đơn hàng</p>
+        <div class="flex justify-start align-middle gap-5">
+            <div>
+                <span class="mr-2">Từ</span>
+                <p-inputNumber
+                    inputId="integeronly"
+                    [(ngModel)]="orderVolumnFrom"
+                >
+                </p-inputNumber>
+            </div>
+            <div>
+                <span class="mr-2">Đến</span>
+                <p-inputNumber
+                    inputId="integeronly"
+                    [(ngModel)]="orderVolumnTo"
+                >
+                </p-inputNumber>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5">
+        <p>Sản phẩm đã mua</p>
+        <p-multiSelect
+            [options]="channels"
+            [(ngModel)]="selectedChannels"
+            placeholder="Chọn sản phẩm đã mua"
+            optionLabel="name"
+            display="chip"
+            [showClear]="true"
+            [overlayVisible]="false"
+            ngClass="w-full"
+            [style]="{
+                width: '100%'
+            }"
+        ></p-multiSelect>
+    </div>
+    <div class="mt-5">
+        <p>Chi tiêu</p>
+        <div class="flex justify-start align-middle gap-5">
+            <div>
+                <span class="mr-2">Từ</span>
+                <p-inputNumber
+                    inputId="integeronly"
+                    [(ngModel)]="spentVolumnFrom"
+                    mode="currency"
+                    currency="VND"
+                >
+                </p-inputNumber>
+            </div>
+            <div>
+                <span class="mr-2">Đến</span>
+                <p-inputNumber
+                    inputId="integeronly"
+                    [(ngModel)]="spentVolumnTo"
+                    mode="currency"
+                    currency="VND"
+                >
+                </p-inputNumber>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5">
+        <p>Có mua hàng</p>
+
+        <div class="flex justify-start align-middle gap-5">
+            <p-dropdown
+                [options]="optionsBuying"
+                [(ngModel)]="selectedOptionBuying"
+                [showClear]="true"
+                placeholder="Chọn loại thời gian"
+            >
+            </p-dropdown>
+            <div>
+                <div *ngIf="selectedOptionBuying === 'option1'">
+                    <p-dropdown
+                        [options]="optionsTimeBuying"
+                        [(ngModel)]="selectedOptionTimeBuying"
+                        [showClear]="true"
+                        placeholder="Chọn khoảng thời gian"
+                    >
+                    </p-dropdown>
+                </div>
+                <div *ngIf="selectedOptionBuying === 'option2'">
+                    <p-calendar
+                        [(ngModel)]="rangeDatesBuying"
+                        selectionMode="range"
+                        [readonlyInput]="true"
+                        [showButtonBar]="true"
+                        dateFormat="dd/mm/yy"
+                    ></p-calendar>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5">
+        <p>Không mua hàng</p>
+
+        <div class="flex justify-start align-middle gap-5">
+            <p-dropdown
+                [options]="optionsNotBuying"
+                [(ngModel)]="selectedOptionNotBuying"
+                [showClear]="true"
+                placeholder="Chọn loại thời gian"
+            >
+            </p-dropdown>
+            <div>
+                <div *ngIf="selectedOptionNotBuying === 'option1'">
+                    <p-dropdown
+                        [options]="optionsTimeNotBuying"
+                        [(ngModel)]="selectedOptionTimeNotBuying"
+                        [showClear]="true"
+                        placeholder="Chọn khoảng thời gian"
+                    >
+                    </p-dropdown>
+                </div>
+                <div *ngIf="selectedOptionNotBuying === 'option2'">
+                    <p-calendar
+                        [(ngModel)]="rangeDatesNotBuying"
+                        selectionMode="range"
+                        [readonlyInput]="true"
+                        [showButtonBar]="true"
+                        dateFormat="dd/mm/yy"
+                    ></p-calendar>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

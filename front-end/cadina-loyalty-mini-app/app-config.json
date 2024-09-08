@@ -1,0 +1,42 @@
+{
+  "app": {
+    "title": "XYZ Loyalty",
+    "headerTitle": "XYZ Loyalty",
+    "headerColor": {
+      "light": "#fff",
+      "dark": "#000"
+    },
+    "textColor": {
+      "light": "black",
+      "dark": "white"
+    },
+    "statusBarColor": {
+      "light": "#1843EF",
+      "dark": "#9e9e9e"
+    },
+    "leftButton": "none",
+    "actionBarHidden": false,
+    "hideAndroidBottomNavigationBar": false,
+    "hideIOSSafeAreaBottom": false,
+    "selfControlLoading": false,
+    "statusBar": "normal"
+  },
+  "debug": false,
+  "listCSS": [],
+  "listSyncJS": [],
+  "listAsyncJS": [],
+  "pages": [
+    "/",
+    "/user",
+    "/userReward",
+    "/userAttendance",
+    "/trackingItem",
+    "/reward",
+    "/rewardPoint",
+    "/rate",
+    "/rateOrder"
+  ],
+  "template": {
+    "primaryColor": "#000000"
+  }
+}

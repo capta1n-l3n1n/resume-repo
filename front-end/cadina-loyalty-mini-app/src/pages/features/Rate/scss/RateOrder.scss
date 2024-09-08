@@ -1,0 +1,8 @@
+@for $i from 0 through 100 {
+  .star-#{$i} {
+    color: #dcdcdc;
+  }
+}
+.star-active {
+  color: #bb2027;
+}

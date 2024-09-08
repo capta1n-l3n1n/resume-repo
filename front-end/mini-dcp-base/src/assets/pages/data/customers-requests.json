@@ -1,0 +1,39 @@
+{
+    "data": [
+        {
+            "id": "1000",
+            "name": "Jesus Nguyễn",
+            "createAt": "1714643845020",
+            "status": "pending",
+            "title": "Đổi trả sản phẩm"
+        },
+        {
+            "id": "1001",
+            "name": "Jesus Nguyễn",
+            "createAt": "1714643845020",
+            "status": "",
+            "title": "Đổi trả sản phẩm E"
+        },
+        {
+            "id": "1002",
+            "name": "Jesus Nguyễn",
+            "createAt": "1714643845020",
+            "status": "finished",
+            "title": "Đổi trả sản phẩm F"
+        },
+        {
+            "id": "1003",
+            "name": "Jesus Nguyễn",
+            "createAt": "1714643845020",
+            "status": "pending",
+            "title": "Đổi trả sản phẩm"
+        },
+        {
+            "id": "1004",
+            "name": "Jesus Nguyễn",
+            "createAt": "1714643845020",
+            "status": "finished",
+            "title": "Đổi trả sản phẩm"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+<div>
+    <p>Vui lòng chọn sở thích</p>
+    <p-multiSelect
+        [options]="hobbies"
+        [(ngModel)]="selectedHobbies"
+        placeholder="Chọn sở thích"
+        optionLabel="name"
+        display="chip"
+        [showClear]="true"
+        [overlayVisible]="false"
+        ngClass="w-full"
+        [style]="{
+            width: '100%'
+        }"
+    ></p-multiSelect>
+</div>

@@ -1,0 +1,16 @@
+<div>
+    <p>Vui lòng chọn các tháng sinh nhật mong muốn</p>
+    <p-multiSelect
+        [options]="months"
+        [(ngModel)]="selectedMonths"
+        placeholder="Chọn tháng"
+        optionLabel="name"
+        display="chip"
+        [showClear]="true"
+        [overlayVisible]="false"
+        ngClass="w-full"
+        [style]="{
+            width: '100%'
+        }"
+    ></p-multiSelect>
+</div>

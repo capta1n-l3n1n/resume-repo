@@ -1,0 +1,10 @@
+.apexcharts-legend-series {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+    align-items: center !important;
+}
+
+.apexcharts-legend-marker {
+    width: 70px !important;
+    border-radius: 2px !important;
+}

@@ -1,0 +1,88 @@
+<div>
+    <p>Vui lòng chọn độ tuổi</p>
+    <div class="flex justify-between align-middle gap-5">
+        <div class="basis-2/5">
+            <p>Từ</p>
+            <p-inputNumber
+                type="number"
+                placeholder="Độ tuổi"
+                [style]="{
+                    width: '100%'
+                }"
+                ngClass="w-full"
+                [min]="0"
+                [max]="200"
+                [(ngModel)]="fromAge"
+            />
+        </div>
+        <span class="self-end xl:block mb-2 hidden basis-1"
+            ><i class="pi pi-minus"></i
+        ></span>
+        <div class="basis-2/5">
+            <p>Đến</p>
+            <p-inputNumber
+                type="number"
+                placeholder="Độ tuổi"
+                ngClass="w-full"
+                [style]="{
+                    width: '100%'
+                }"
+                [min]="0"
+                [max]="200"
+                [(ngModel)]="toAge"
+            ></p-inputNumber>
+        </div>
+        <div class="basis-1/5 self-end">
+            <button
+                pRipple
+                pButton
+                type="button"
+                (click)="addInput()"
+                class="p-button-outlined p-button-primary text-sm"
+            >
+                <i class="pi pi-plus text-xs"></i>{{ "" }} Thêm độ tuổi
+            </button>
+        </div>
+    </div>
+    <div *ngFor="let input of inputFields; let i = index">
+        <div class="flex justify-between align-middle gap-5 mt-3">
+            <div class="basis-2/5">
+                <p-inputNumber
+                    type="number"
+                    placeholder="Độ tuổi"
+                    [style]="{
+                        width: '100%'
+                    }"
+                    ngClass="w-full"
+                    [min]="0"
+                    [max]="200"
+                    [(ngModel)]="input.valueFromAge"
+                />
+            </div>
+            <span class="self-end xl:block mb-2 hidden basis-1"
+                ><i class="pi pi-minus"></i
+            ></span>
+            <div class="basis-2/5">
+                <p-inputNumber
+                    type="number"
+                    placeholder="Độ tuổi"
+                    [style]="{
+                        width: '100%'
+                    }"
+                    ngClass="w-full"
+                    [min]="0"
+                    [max]="200"
+                    [(ngModel)]="input.valueToAge"
+                ></p-inputNumber>
+            </div>
+            <div class="basis-1/5 self-end">
+                <button
+                    pButton
+                    type="button"
+                    icon="pi pi-trash"
+                    (click)="deleteInput(i)"
+                ></button>
+            </div>
+        </div>
+    </div>
+</div>

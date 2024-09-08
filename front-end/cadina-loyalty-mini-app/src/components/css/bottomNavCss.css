@@ -1,0 +1,16 @@
+.zaui-bottom-navigation-item-active {
+  color: #bb2027 !important;
+}
+@keyframes jiggle {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+.jiggle-animation {
+  animation: jiggle 0.3s infinite;
+}

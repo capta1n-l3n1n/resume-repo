@@ -1,0 +1,34 @@
+{
+  "app": {
+    "title": "xyz Operation",
+    "headerTitle": "xyz Operation",
+    "headerColor": {
+      "light": "#fff",
+      "dark": "#000"
+    },
+    "textColor": {
+      "light": "black",
+      "dark": "white"
+    },
+    "statusBarColor": {
+      "light": "#000",
+      "dark": "#fff"
+    },
+    "leftButton": "none",
+    "actionBarHidden": false,
+    "hideAndroidBottomNavigationBar": false,
+    "hideIOSSafeAreaBottom": false,
+    "selfControlLoading": false,
+    "statusBar": "normal"
+  },
+  "debug": false,
+  "listCSS": [],
+  "listSyncJS": [],
+  "listAsyncJS": [],
+  "pages": [
+    "/"
+  ],
+  "template": {
+    "primaryColor": "#000"
+  }
+}

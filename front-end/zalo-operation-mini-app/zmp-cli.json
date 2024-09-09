@@ -1,0 +1,19 @@
+{
+  "cwd": "C:\\Coding\\Work\\miniapp-zalo\\xyz-operation-mini-app",
+  "newProject": true,
+  "name": "xyz Operation",
+  "package": "zmp-ui",
+  "framework": "react-typescript",
+  "cssPreProcessor": false,
+  "template": "single-view",
+  "includeTailwind": true,
+  "theming": {
+    "color": "#000",
+    "darkTheme": false,
+    "fillBars": false,
+    "useUiKits": true,
+    "iconFonts": true
+  },
+  "customBuild": false,
+  "stateManagement": "recoil"
+}
